@@ -6,55 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body>
-      <main class="container">
+  <body class="flex flex-col min-h-screen">
+      <main class="container mx-auto">
           <header class ="text-center">
-              <h1> Data entry form</h1>
-              <h2> Join Thousands of Happy users </h2>
-              <h3> Sign up for free and start your journey today </h3>
-               <p> Easy to use no Hidden feeds cancel anytime</p>
+              <h1 class ="text-4xl font-bold mb-2"> Data entry form</h1>
+              <h2 class="text-2xl font-semibold text-gray-700 mb-1"> Join Thousands of Happy users </h2>
+              <h3 class="text-xl text-gray-600 mb-1"> Fill out the form and start your journey today </h3>
+               <p class="text-sm text-gray-500"> Easy to use no Hidden feeds cancel anytime</p>
           </header>
-            <form id="data-entry-form" method="post" class="data-entry-form space-y-4 bg-white p-6 rounded-lg shadow-md">
+            <form id="data-entry-form" method="post" class="data-entry-form space-y-4 bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
                <div class ="flex flex-col justify-start">
               <label for="name">Enter your Full Name:</label>
-              <input type="name" id="name" name="name" />
+              <input class="border border-gray-300 rounded p-2" type="name" id="name" name="name" />
+               </div>
+               <div class="flex flex-col justify-start">
                <label for="email">Enter your email address:</label>
-                <input type="email" id="email" name="email" required />
+                <input class="border border-gray-300 rounded p-2" type="email" id="email" name="email" required />
+               </div>
+               <div class="flex flex-col justify-start">
                 <label for="phone">Enter your phone number:</label>
-              <input required type="tel" id="phone" name="phone" />
-               <div class="flex flex-col justify">
+              <input class="border border-gray-300 rounded p-2" required type="tel" id="phone" name="phone" />
+               </div>
+               <div class="flex flex-col justify-start">
               <label for="msg">Message:</label>
-               <textarea id="msg" name="user_message"></textarea>
-    <label for="budget">Choose a Budget:</label>
-    <select id="budget" name="budget">
-        <option value="0-50k">Up to 50k</option>
-        <option value="50k-100k">Up to 100k</option>
-        <option value="100k+">Above 100k</option>
-    </select>
-    </div>
-    <div class="flex flex-col justify-start">
-          <fieldset>
+               <textarea class="border border-gray-300 rounded p-2" id="msg" name="user_message"></textarea>
+               </div>
+               <div class="flex flex-col justify-start">
+                <label for="budget">Choose a Budget:</label>
+                <select class="border border-gray-300 rounded p-2" id="budget" name="budget">
+                    <option value="0-50k">Up to 50k</option>
+                    <option value="50k-100k">Up to 100k</option>
+                    <option value="100k+">Above 100k</option>
+                </select>
+               </div>
+               <div class="flex flex-col justify-start">
+              <fieldset>
               <legend> Please select your employment status:</legend>
                 <div>
-      <input type="radio" id="contactChoice1" name="employment" value="employed" />
-      <label for="contactChoice1">Employed</label>
-      <input type="radio" id="contactChoice2" name="employment" value="unemployed" />
-      <label for="contactChoice2">Unemployed</label>
-         <input type="radio" id="contactChoice3" name="employment" value="self" />
-      <label for="contactChoice3">Self-Employed</label>
-    </div>
-          </fieldset>
-          
-    <div>
-      <button class="bg-blue-500 p-2 text-white rounded" type="submit">Submit</button>
-    </div>
+                  <input type="radio" id="contactChoice1" name="employment" value="employed" />
+                  <label for="contactChoice1">Employed</label>
+                  <input type="radio" id="contactChoice2" name="employment" value="unemployed" />
+                  <label for="contactChoice2">Unemployed</label>
+                  <input type="radio" id="contactChoice3" name="employment" value="self" />
+                  <label for="contactChoice3">Self-Employed</label>
+                </div>
+              </fieldset>
+               </div>
+               <div class="flex flex-col justify-start">
+                <button class="bg-blue-500 p-2 text-white rounded" type="submit">Submit</button>
+               </div>
       </form>
-
     <div id="app"></div>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="/src/main.js"></script>
+      </main>
+
+  <footer class="mt-auto">
+      <p> Links to privacy policy and terms of  service </p>
+</footer>
   </body>
-  <footer>
-      <p> Links to privacy policy and teerms of  service </p>
-   </footer>
 </html>
+
