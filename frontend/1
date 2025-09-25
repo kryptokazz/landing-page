@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NDIS Property Investments</title>
+    <title>NDIS Property Investments | Nature-Inspired Living</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href"=src/style.css"></link>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </style>
 </head>
 <body class="flex flex-col min-h-screen nature-bg">
+    <script src="src/test.js"></script>
+    <!-- Header -->
     <header class="bg-white shadow-sm">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
@@ -19,6 +22,8 @@
                 </div>
                 <nav class="hidden md:flex space-x-8">
                     <a href="#home" class="text-green-800 font-medium hover:text-green-600">Home</a>
+                    <a href="#about" class="text-green-800 font-medium hover:text-green-600">About</a>
+                    <a href="#services" class="text-green-800 font-medium hover:text-green-600">Services</a>
                     <a href="#contact" class="text-green-800 font-medium hover:text-green-600">Contact</a>
                 </nav>
                 <button class="md:hidden text-green-800">
@@ -28,7 +33,11 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section id="home" class="py-16 md:py-24 relative overflow-hidden">
+        <div class="leaf-decoration top-10 left-10"></div>
+        <div class="leaf-decoration bottom-10 right-10"></div>
+        
         <div class="container mx-auto px-4 text-center relative z-10">
             <h1 class="heading-font text-4xl md:text-5xl font-bold text-green-900 mb-4">
                 Nature-Inspired NDIS Property Investments
@@ -40,13 +49,87 @@
                 <a href="#contact" class="btn-primary text-white font-medium py-3 px-8 rounded-lg">
                     Get Started Today
                 </a>
-                <a href="#contact" class="bg-white text-green-800 border border-green-700 font-medium py-3 px-8 rounded-lg">
+                <a href="#about" class="bg-white text-green-800 border border-green-700 font-medium py-3 px-8 rounded-lg">
                     Learn More
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-3xl font-bold text-green-900 mb-4">About Our NDIS Property Approach</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto">
+                    We specialize in creating properties that not only meet NDIS requirements but also provide tranquil, 
+                    nature-connected environments that promote wellbeing and independence.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card bg-green-50 p-6 rounded-lg border border-green-100">
+                    <div class="text-green-700 text-3xl mb-4">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-900 mb-2">Nature Integration</h3>
+                    <p class="text-gray-700">Our properties are designed to incorporate natural elements, creating calming environments that support mental and physical wellbeing.</p>
+                </div>
+                
+                <div class="feature-card bg-green-50 p-6 rounded-lg border border-green-100">
+                    <div class="text-green-700 text-3xl mb-4">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-900 mb-2">Full Accessibility</h3>
+                    <p class="text-gray-700">Every property is designed with comprehensive accessibility features to meet diverse NDIS participant needs.</p>
+                </div>
+                
+                <div class="feature-card bg-green-50 p-6 rounded-lg border border-green-100">
+                    <div class="text-green-700 text-3xl mb-4">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-900 mb-2">Community Focused</h3>
+                    <p class="text-gray-700">We build properties that foster community connections while respecting individual privacy and independence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-3xl font-bold text-green-900 mb-4">Our Property Services</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto">
+                    From initial consultation to property management, we provide end-to-end solutions for NDIS property investments.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-green-100">
+                    <h3 class="text-xl font-bold text-green-900 mb-2">Property Development</h3>
+                    <p class="text-gray-700 mb-4">We specialize in developing new NDIS-compliant properties or retrofitting existing ones to meet accessibility standards.</p>
+                    <ul class="text-gray-700 space-y-2">
+                        <li><i class="fas fa-check text-green-600 mr-2"></i> Custom design consultations</li>
+                        <li><i class="fas fa-check text-green-600 mr-2"></i> Sustainable building practices</li>
+                        <li><i class="fas fa-check text-green-600 mr-2"></i> NDIS compliance certification</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-green-100">
+                    <h3 class="text-xl font-bold text-green-900 mb-2">Investment Management</h3>
+                    <p class="text-gray-700 mb-4">We help investors navigate the NDIS property market with expert guidance and management services.</p>
+                    <ul class="text-gray-700 space-y-2">
+                        <li><i class="fas fa-check text-green-600 mr-2"></i> ROI optimization strategies</li>
+                        <li><i class="fas fa-check text-green-600 mr-2"></i> Tenant matching services</li>
+                        <li><i class="fas fa-check text-green-600 mr-2"></i> Ongoing property maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
     <section id="contact" class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-2xl mx-auto">
@@ -106,10 +189,8 @@
             </div>
         </div>
     </section>
-    
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-    
+
+    <!-- Footer -->
     <footer class="mt-auto bg-green-900 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
