@@ -1,6 +1,7 @@
 // backend/src/server.js
 const cors = require('cors');
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,16 +29,21 @@ app.post('/api/submit-form', (req, res) => {
     const formData = req.body;
     console.log('Received form data:', formData);
 
-    // Placeholder for your backend logic
-    // - Generate CSV/JSON
-    // - Process with AI agent
-    // - Send emails/SMS
+
+  // Write the form data to a JSON file
+  const filePath = path.join(__dirname, 'formData.json'); // Define the path for the JSON file
+  fs.writeFile(filePath, JSON.stringify(formData, null, 2), (err) => {
+    if (err) {
+      console.error('Error writing to file', err);
+      return res.status(500).json({ message: 'Error saving data' });
+    }
 
     // Send a response back to the frontend
     res.status(200).json({
-        message: 'Form submitted successfully!',
-        data: formData
+      message: 'Form submitted successfully!',
+      data: formData
     });
+  });
 });
 
 // Start the server
