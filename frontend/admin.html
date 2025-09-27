@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .data-table th, .data-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        .data-table th { background-color: #f3f4f6; color: #1f2937; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container">
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-green-700">Client Inquiry Management</h1>
+            <p class="text-gray-600">Overview of all submitted NDIS property inquiries.</p>
+        </header>
+
+        <main id="inquiries-container">
+            <div id="loading" class="text-lg text-gray-500">Loading inquiry data...</div>
+            <table class="w-full data-table rounded-lg shadow-lg hidden" id="inquiries-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Interest</th>
+                        <th>Message Snippet</th>
+                    </tr>
+                </thead>
+                <tbody id="inquiries-tbody">
+                    </tbody>
+            </table>
+            <div id="error-message" class="text-red-600 hidden mt-4 p-4 bg-red-100 border border-red-300 rounded"></div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const tableBody = document.getElementById('inquiries-tbody');
+            const table = document.getElementById('inquiries-table');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+
+            try {
+                const response = await fetch('http://localhost:3000/api/inquiries');
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                
+                loading.classList.add('hidden');
+                table.classList.remove('hidden');
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-gray-500">No inquiries found.</td></tr>';
+                    return;
+                }
+
+                data.forEach(inquiry => {
+                    const row = tableBody.insertRow();
+                    
+                    // Simple date formatting
+                    const date = new Date(inquiry.created_at).toLocaleDateString();
+                    const snippet = inquiry.message ? inquiry.message.substring(0, 50) + '...' : 'N/A';
+                    
+                    row.insertCell().textContent = inquiry.id;
+                    row.insertCell().textContent = date;
+                    row.insertCell().textContent = inquiry.name;
+                    row.insertCell().textContent = inquiry.email;
+                    row.insertCell().textContent = inquiry.service_type || 'General';
+                    row.insertCell().textContent = snippet;
+                });
+
+            } catch (error) {
+                loading.classList.add('hidden');
+                errorMessage.textContent = 'Error: Could not load inquiry data from the server.';
+                errorMessage.classList.remove('hidden');
+                console.error('Admin Fetch Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
