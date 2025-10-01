@@ -3,12 +3,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
+      "src": "api/server.js",
       "use": "@vercel/node",
       "config": { "includeFiles": ["api/inquiries.db"] }
     },
     {
-      "src": "vite.config.js",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": { "distDir": "dist" }
     }
@@ -17,10 +17,6 @@
     {
       "src": "/api/(.*)",
       "dest": "/api/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/$1"
     }
   ]
 }
