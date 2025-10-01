@@ -1,14 +1,14 @@
 
-// api/init-db.js
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+import sqlite3 from 'sqlite3';
+import path from 'path';
 
+const __dirname = path.resolve();
 const DB_PATH = process.env.NODE_ENV === 'production' 
     ? '/tmp/inquiries.db' 
-    : path.join(__dirname, 'inquiries.db');
+    : path.join(__dirname, 'api', 'inquiries.db');
 
 // Connect to the database (or create it if it doesn't exist)
-const db = new sqlite3.Database(DB_PATH, (err) => {
+const db = new sqlite3.verbose().Database(DB_PATH, (err) => {
     if (err) {
         console.error('Error connecting to the database:', err.message);
     } else {

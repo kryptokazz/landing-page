@@ -1,10 +1,13 @@
 
-require('dotenv').config(); // Load environment variables
-const cors = require('cors');
-const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const { body, validationResult } = require('express-validator');
-const path = require('path');
+import dotenv from 'dotenv';
+dotenv.config(); // Load environment variables
+
+import cors from 'cors';
+import express from 'express';
+import sqlite3 from 'sqlite3';
+import { body, validationResult } from 'express-validator';
+import path from 'path';
+
 const app = express();
 
 // CORS configuration
@@ -22,13 +25,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Define the path for the SQLite database
+const __dirname = path.resolve();
 const DB_PATH = process.env.NODE_ENV === 'production' 
     ? '/tmp/inquiries.db' 
-    : (process.env.DATABASE_PATH || path.join(__dirname, 'inquiries.db'));
+    : (process.env.DATABASE_PATH || path.join(__dirname, 'api', 'inquiries.db'));
 
 // Function to connect to the database
 const connectDb = () => {
-    return new sqlite3.Database(DB_PATH, (err) => {
+    return new sqlite3.verbose().Database(DB_PATH, (err) => {
         if (err) {
             console.error('Error connecting to the database:', err.message);
         }
@@ -121,4 +125,4 @@ app.get('/api/inquiries', (req, res) => {
     db.close();
 });
 
-module.exports = app;
+export default app;
