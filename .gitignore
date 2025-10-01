@@ -16,3 +16,4 @@
 # SQLite database
 *.db
 *.db-journal
+.vercel
