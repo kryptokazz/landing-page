@@ -36,8 +36,33 @@ const connectDb = () => {
     });
 };
 
-// The rest of your API routes will go here
-// ...
+
+// Define the API endpoint to handle form submissions with validation
+app.post(
+    '/api/login',
+    [
+        body('username').notEmpty(),
+        body('password').notEmpty(),
+    ],
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { username, password } = req.body;
+
+        if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+            // In a real application, you would generate a proper JWT here
+            res.status(200).json({ token: 'super-secret-admin-token' });
+        } else {
+            res.status(401).json({ message: 'Invalid credentials' });
+        }
+    }
+);
+
+app.post(
+    '/api/submit-form',
 
 // We need to export the app for Vercel
 module.exports = app;

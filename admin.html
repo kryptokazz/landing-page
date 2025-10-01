@@ -12,6 +12,11 @@
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
+    <script>
+        if (!localStorage.getItem('admin-token')) {
+            window.location.href = '/login.html';
+        }
+    </script>
     <div class="container">
         <header class="mb-8">
             <h1 class="text-4xl font-bold text-green-700">Client Inquiry Management</h1>
