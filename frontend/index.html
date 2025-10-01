@@ -146,18 +146,22 @@
                 <div class="flex flex-col justify-start">
                         <label for="name" class="text-green-900 font-medium mb-2">Enter your Full Name:</label>
                         <input class="border border-green-200 rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500" type="text" id="name" name="name" required />
+                        <div id="name-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-start">
                         <label for="email" class="text-green-900 font-medium mb-2">Enter your email address:</label>
                         <input class="border border-green-200 rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500" type="email" id="email" name="email" required />
+                        <div id="email-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-start">
                         <label for="phone" class="text-green-900 font-medium mb-2">Enter your phone number:</label>
                         <input class="border border-green-200 rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500" required type="tel" id="phone" name="phone" />
+                        <div id="phone-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-start">
                         <label for="msg" class="text-green-900 font-medium mb-2">Message:</label>
                         <textarea class="border border-green-200 rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500" id="msg" name="user_message" rows="4"></textarea>
+                        <div id="msg-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-start">
                         <label for="budget" class="text-green-900 font-medium mb-2">Choose a Budget:</label>
@@ -166,6 +170,7 @@
                             <option value="50k-100k">Up to 100k</option>
                             <option value="100k+">Above 100k</option>
                         </select>
+                        <div id="budget-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-start">
                         <fieldset class="border border-green-200 rounded p-4">
@@ -185,6 +190,7 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <div id="employment-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-start pt-4">
                         <button class="btn-primary text-white font-medium py-3 px-6 rounded-lg w-full" type="submit">Submit Your Inquiry</button>
@@ -217,6 +223,11 @@
                 <p>&copy; 2023 NDIS Property Investments. All rights reserved.</p>
             </div>
         </div>
+        <nav class="p-4 bg-gray-100 shadow">
+    <a href="./admin.html" class="text-green-700 hover:text-green-900 font-medium">
+        Go to Admin Dashboard
+    </a>
+</nav>
     </footer>
 <script src="src/animations.js" defer></script>
 </body>
