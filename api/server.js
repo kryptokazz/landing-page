@@ -13,8 +13,9 @@ const app = express();
 // CORS configuration
 const corsOptions = {
     origin: process.env.NODE_ENV === 'production' ? process.env.CLIENT_URL : '*',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 // Use CORS as the first middleware

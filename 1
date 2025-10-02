@@ -12,6 +12,35 @@
 </head>
 <body class="flex flex-col min-h-screen nature-bg">
     <script src="src/test.js"></script>
+    <script>
+        document.getElementById('data-entry-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/submit-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Form submitted successfully!');
+                    this.reset();
+                } else {
+                    alert('Error: ' + (result.message || 'Failed to submit form'));
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            }
+        });
+    </script>
     <!-- Header -->
     <header class="bg-white shadow-sm">
         <div class="container mx-auto px-4 py-4">
@@ -138,7 +167,7 @@
                     <p class="text-gray-700">Fill out the form below and we'll contact you to discuss your investment opportunities.</p>
                 </div>
                 
-                <form id="data-entry-form" method="post" class="data-entry-form space-y-6 bg-green-50 p-8 rounded-lg shadow-sm border border-green-100">
+                <form id="data-entry-form" class="data-entry-form space-y-6 bg-green-50 p-8 rounded-lg shadow-sm border border-green-100">
                     <div class="flex flex-col justify-start">
                         <label for="name" class="text-green-900 font-medium mb-2">Enter your Full Name:</label>
                         <input class="border border-green-200 rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500" type="text" id="name" name="name" required />
