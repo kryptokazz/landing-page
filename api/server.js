@@ -77,12 +77,22 @@ app.post(
         body('password').notEmpty().withMessage('Password is required'),
     ],
     (req, res) => {
-        console.log('Login attempt received');
+        console.log('=== LOGIN ATTEMPT START ===');
+        console.log('Login attempt received at:', new Date().toISOString());
+        console.log('Request body:', JSON.stringify(req.body));
+        
+        // Log all environment variables (be careful not to expose sensitive data in production)
+        console.log('Environment variables present:', Object.keys(process.env).filter(key => 
+            key.includes('ADMIN') || key.includes('NODE') || key.includes('VERCEL')
+        ));
+        
         console.log('Environment check:', {
             hasUsername: !!process.env.ADMIN_USERNAME,
             hasPassword: !!process.env.ADMIN_PASSWORD,
             usernameLength: process.env.ADMIN_USERNAME?.length,
-            passwordLength: process.env.ADMIN_PASSWORD?.length
+            passwordLength: process.env.ADMIN_PASSWORD?.length,
+            nodeEnv: process.env.NODE_ENV,
+            vercelEnv: process.env.VERCEL_ENV
         });
         
         const errors = validationResult(req);
@@ -93,23 +103,49 @@ app.post(
 
         const { username, password } = req.body;
         console.log('Login attempt for username:', username);
+        console.log('Provided password length:', password?.length);
 
         // Check if environment variables are set
         if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD) {
             console.error('Admin credentials not configured in environment');
-            return res.status(500).json({ message: 'Server configuration error' });
+            console.error('ADMIN_USERNAME:', process.env.ADMIN_USERNAME);
+            console.error('ADMIN_PASSWORD:', process.env.ADMIN_PASSWORD);
+            return res.status(500).json({ 
+                message: 'Server configuration error: Admin credentials not set' 
+            });
         }
 
-        if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+        console.log('Expected username:', process.env.ADMIN_USERNAME);
+        console.log('Expected password length:', process.env.ADMIN_PASSWORD?.length);
+        
+        // Compare credentials
+        const isUsernameMatch = username === process.env.ADMIN_USERNAME;
+        const isPasswordMatch = password === process.env.ADMIN_PASSWORD;
+        
+        console.log('Username match:', isUsernameMatch);
+        console.log('Password match:', isPasswordMatch);
+
+        if (isUsernameMatch && isPasswordMatch) {
             console.log('Login successful for user:', username);
             res.status(200).json({ 
                 token: 'super-secret-admin-token',
                 message: 'Login successful'
             });
         } else {
-            console.log('Login failed: Invalid credentials for user:', username);
+            console.log('Login failed: Invalid credentials');
+            console.log('Username comparison:', { 
+                expected: process.env.ADMIN_USERNAME, 
+                received: username,
+                match: isUsernameMatch
+            });
+            console.log('Password comparison:', {
+                expectedLength: process.env.ADMIN_PASSWORD?.length,
+                receivedLength: password?.length,
+                match: isPasswordMatch
+            });
             res.status(401).json({ message: 'Invalid credentials' });
         }
+        console.log('=== LOGIN ATTEMPT END ===');
     }
 );
 

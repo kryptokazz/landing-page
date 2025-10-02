@@ -53,7 +53,8 @@ app.post(
         body('password').notEmpty().withMessage('Password is required'),
     ],
     (req, res) => {
-        console.log('Login attempt received');
+        console.log('=== LOGIN ATTEMPT START (Backend) ===');
+        console.log('Login attempt received at:', new Date().toISOString());
         console.log('Environment check:', {
             hasUsername: !!process.env.ADMIN_USERNAME,
             hasPassword: !!process.env.ADMIN_PASSWORD,
@@ -86,6 +87,7 @@ app.post(
             console.log('Login failed: Invalid credentials for user:', username);
             res.status(401).json({ message: 'Invalid credentials' });
         }
+        console.log('=== LOGIN ATTEMPT END (Backend) ===');
     }
 );
 

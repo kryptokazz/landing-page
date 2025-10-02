@@ -38,6 +38,12 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Signing In...';
+            errorMessage.textContent = '';
 
             try {
                 const response = await fetch('/api/login', {
@@ -49,15 +55,20 @@
                 });
 
                 const result = await response.json();
+                console.log('Login response:', result);
 
                 if (!response.ok) {
-                    errorMessage.textContent = result.message || 'Login failed.';
+                    errorMessage.textContent = result.message || 'Login failed. Please check your credentials.';
                 } else {
                     localStorage.setItem('admin-token', result.token);
                     window.location.href = '/admin.html';
                 }
             } catch (error) {
-                errorMessage.textContent = 'An error occurred. Please try again.';
+                console.error('Login error:', error);
+                errorMessage.textContent = 'Network error. Please try again.';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Sign In';
             }
         });
     </script>
