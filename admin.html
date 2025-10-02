@@ -56,7 +56,7 @@
             const errorMessage = document.getElementById('error-message');
 
             try {
-                const response = await fetch('http://localhost:3000/api/inquiries');
+                const response = await fetch('/api/inquiries');
                 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch data: ${response.statusText}`);
@@ -77,13 +77,13 @@
                     
                     // Simple date formatting
                     const date = new Date(inquiry.created_at).toLocaleDateString();
-                    const snippet = inquiry.message ? inquiry.message.substring(0, 50) + '...' : 'N/A';
+                    const snippet = inquiry.user_message ? inquiry.user_message.substring(0, 50) + '...' : 'N/A';
                     
                     row.insertCell().textContent = inquiry.id;
                     row.insertCell().textContent = date;
                     row.insertCell().textContent = inquiry.name;
                     row.insertCell().textContent = inquiry.email;
-                    row.insertCell().textContent = inquiry.service_type || 'General';
+                    row.insertCell().textContent = inquiry.budget || 'Not specified';
                     row.insertCell().textContent = snippet;
                 });
 

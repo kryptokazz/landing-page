@@ -31,6 +31,35 @@ const DB_PATH = process.env.NODE_ENV === 'production'
     ? '/tmp/inquiries.db' 
     : (process.env.DATABASE_PATH || path.join(__dirname, 'api', 'inquiries.db'));
 
+// Initialize database on startup
+const initDb = () => {
+    const db = new sqlite3.verbose().Database(DB_PATH);
+    const createTableSql = `
+    CREATE TABLE IF NOT EXISTS inquiries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        created_at TEXT NOT NULL,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        phone TEXT,
+        user_message TEXT,
+        budget TEXT,
+        employment TEXT
+    );`;
+    
+    db.run(createTableSql, (err) => {
+        if (err) {
+            console.error('Error creating table:', err.message);
+        } else {
+            console.log('Table "inquiries" created or already exists.');
+        }
+    });
+    
+    db.close();
+};
+
+// Initialize the database
+initDb();
+
 // Function to connect to the database
 const connectDb = () => {
     return new sqlite3.verbose().Database(DB_PATH, (err) => {
@@ -44,11 +73,18 @@ const connectDb = () => {
 app.post(
     '/api/login',
     [
-        body('username').notEmpty(),
-        body('password').notEmpty(),
+        body('username').notEmpty().withMessage('Username is required'),
+        body('password').notEmpty().withMessage('Password is required'),
     ],
     (req, res) => {
         console.log('Login attempt received');
+        console.log('Environment check:', {
+            hasUsername: !!process.env.ADMIN_USERNAME,
+            hasPassword: !!process.env.ADMIN_PASSWORD,
+            usernameLength: process.env.ADMIN_USERNAME?.length,
+            passwordLength: process.env.ADMIN_PASSWORD?.length
+        });
+        
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             console.log('Login validation failed:', errors.array());
@@ -56,10 +92,20 @@ app.post(
         }
 
         const { username, password } = req.body;
+        console.log('Login attempt for username:', username);
+
+        // Check if environment variables are set
+        if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD) {
+            console.error('Admin credentials not configured in environment');
+            return res.status(500).json({ message: 'Server configuration error' });
+        }
 
         if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
             console.log('Login successful for user:', username);
-            res.status(200).json({ token: 'super-secret-admin-token' });
+            res.status(200).json({ 
+                token: 'super-secret-admin-token',
+                message: 'Login successful'
+            });
         } else {
             console.log('Login failed: Invalid credentials for user:', username);
             res.status(401).json({ message: 'Invalid credentials' });
